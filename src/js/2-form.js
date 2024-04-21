@@ -8,14 +8,19 @@ textarea.addEventListener("input", handleTextareaPress);
 input.addEventListener("input", handleInputPress)
 form.addEventListener("click", onFormSubmit)
 
+let info = {
+    // email: "",
+    // message: ""
+};
 getStoredData();
 
-let info = {};
 
 function getStoredData() {
     const savedMessage = JSON.parse(localStorage.getItem(KEY));
     if (savedMessage) {
+        info.email = savedMessage.email;
         input.value = savedMessage.email;
+        info.message = savedMessage.message;
         textarea.textContent = savedMessage.message;
     }
 }
@@ -37,32 +42,17 @@ function handleTextareaPress(e) {
 function onFormSubmit(e) {
     e.preventDefault()
     if (e.target.nodeName !== "BUTTON") return; 
-    e.preventDefault();
     if (input.value === "") {
         alert("Please, fill in your name.")
     }
     else if (textarea.value === "") {
         alert("Don't forget to leave your message!")
     } else {
-    console.log(JSON.parse(localStorage.getItem(KEY)))
-    textarea.value = "";
-    input.value = "";
+        console.log(JSON.parse(localStorage.getItem(KEY)))
+        textarea.value = "";
+        input.value = "";
         localStorage.clear();
+        info.email = "";
+        info.message = "";
     }
 }
-
-// function onButtonClick(e) {
-//     if (e.target.nodeName !== "BUTTON") return; 
-//     e.preventDefault();
-//     if (input.value === "") {
-//         alert("Please, fill in your name.")
-//     }
-//     else if (textarea.value === "") {
-//         alert("Don't forget to leave your message!")
-//     } else {
-//     console.log(JSON.parse(localStorage.getItem(KEY)))
-//     textarea.value = "";
-//     input.value = "";
-//         localStorage.clear();
-//     }
-// }
